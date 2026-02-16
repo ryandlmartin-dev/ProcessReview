@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ProcessReview — Process Intelligence Dashboard</title>
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- Sidebar Navigation -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 32 32" fill="none">
+            <rect x="2" y="2" width="28" height="28" rx="8" fill="url(#logoGrad)"/>
+            <path d="M10 16l4 4 8-8" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <defs><linearGradient id="logoGrad" x1="2" y1="2" x2="30" y2="30"><stop stop-color="#6366f1"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+          </svg>
+        </div>
+        <span class="logo-text">ProcessReview</span>
+      </div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="#" class="nav-item active" data-page="dashboard">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+        <span>Dashboard</span>
+      </a>
+      <a href="#" class="nav-item" data-page="processes">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 14l2 2 4-4"/></svg>
+        <span>Processes</span>
+      </a>
+      <a href="#" class="nav-item" data-page="reviews">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+        <span>Reviews</span>
+      </a>
+      <a href="#" class="nav-item" data-page="analytics">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 20V10"/><path d="M12 20V4"/><path d="M6 20v-6"/></svg>
+        <span>Analytics</span>
+      </a>
+      <a href="#" class="nav-item" data-page="team">
+        <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+        <span>Team</span>
+      </a>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="user-card">
+        <div class="avatar">RM</div>
+        <div class="user-info">
+          <span class="user-name">Ryan Martin</span>
+          <span class="user-role">Admin</span>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Top Bar -->
+    <header class="topbar">
+      <button class="menu-toggle" id="menuToggle">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+      </button>
+      <div class="search-bar">
+        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search processes, reviews, team..." id="globalSearch">
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="themeToggle" title="Toggle theme">
+          <svg class="sun-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="moon-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+        </button>
+        <button class="icon-btn notification-btn" id="notifBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg>
+          <span class="notification-badge">3</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Page: Dashboard -->
+    <section class="page active" id="page-dashboard">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Dashboard</h1>
+          <p class="page-subtitle">Real-time overview of your process review pipeline</p>
+        </div>
+        <div class="page-actions">
+          <select class="filter-select" id="timeFilter">
+            <option value="7d">Last 7 days</option>
+            <option value="30d" selected>Last 30 days</option>
+            <option value="90d">Last 90 days</option>
+            <option value="1y">Last year</option>
+          </select>
+          <button class="btn btn-primary" id="newProcessBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M12 5v14M5 12h14"/></svg>
+            New Process
+          </button>
+        </div>
+      </div>
+
+      <!-- KPI Cards -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-label">Total Processes</span>
+            <div class="kpi-icon blue">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2"/><rect x="9" y="3" width="6" height="4" rx="1"/></svg>
+            </div>
+          </div>
+          <div class="kpi-value" data-target="247">0</div>
+          <div class="kpi-trend up">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M23 6l-9.5 9.5-5-5L1 18"/></svg>
+            <span>+12.5% from last period</span>
+          </div>
+          <div class="kpi-sparkline" data-values="20,25,22,30,28,35,40,38,42,45"></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-label">Pending Reviews</span>
+            <div class="kpi-icon amber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+          </div>
+          <div class="kpi-value" data-target="34">0</div>
+          <div class="kpi-trend down">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M23 18l-9.5-9.5-5 5L1 6"/></svg>
+            <span>-8.2% from last period</span>
+          </div>
+          <div class="kpi-sparkline" data-values="50,45,48,40,42,38,36,35,34,34"></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-label">Approval Rate</span>
+            <div class="kpi-icon green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><path d="M22 4L12 14.01l-3-3"/></svg>
+            </div>
+          </div>
+          <div class="kpi-value" data-target="89" data-suffix="%">0%</div>
+          <div class="kpi-trend up">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M23 6l-9.5 9.5-5-5L1 18"/></svg>
+            <span>+3.1% from last period</span>
+          </div>
+          <div class="kpi-sparkline" data-values="78,80,82,81,84,85,86,87,88,89"></div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-header">
+            <span class="kpi-label">Avg. Cycle Time</span>
+            <div class="kpi-icon purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+            </div>
+          </div>
+          <div class="kpi-value" data-target="2.4" data-suffix=" days">0 days</div>
+          <div class="kpi-trend up">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M23 6l-9.5 9.5-5-5L1 18"/></svg>
+            <span>-0.6 days improvement</span>
+          </div>
+          <div class="kpi-sparkline" data-values="4.0,3.8,3.5,3.2,3.0,2.8,2.7,2.5,2.4,2.4"></div>
+        </div>
+      </div>
+
+      <!-- Charts Row -->
+      <div class="charts-grid">
+        <div class="chart-card wide">
+          <div class="chart-header">
+            <h3>Review Activity</h3>
+            <div class="chart-legend">
+              <span class="legend-item"><span class="legend-dot blue"></span>Submitted</span>
+              <span class="legend-item"><span class="legend-dot green"></span>Approved</span>
+              <span class="legend-item"><span class="legend-dot red"></span>Rejected</span>
+            </div>
+          </div>
+          <div class="chart-body">
+            <canvas id="activityChart"></canvas>
+          </div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-header">
+            <h3>Status Distribution</h3>
+          </div>
+          <div class="chart-body donut-container">
+            <canvas id="statusChart"></canvas>
+            <div class="donut-center">
+              <span class="donut-value">247</span>
+              <span class="donut-label">Total</span>
+            </div>
+          </div>
+          <div class="status-legend" id="statusLegend"></div>
+        </div>
+      </div>
+
+      <!-- Recent Processes Table -->
+      <div class="table-card">
+        <div class="table-header">
+          <h3>Recent Processes</h3>
+          <div class="table-filters">
+            <div class="filter-chips">
+              <button class="chip active" data-filter="all">All</button>
+              <button class="chip" data-filter="pending">Pending</button>
+              <button class="chip" data-filter="in-review">In Review</button>
+              <button class="chip" data-filter="approved">Approved</button>
+              <button class="chip" data-filter="rejected">Rejected</button>
+            </div>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Process ID</th>
+                <th>Name</th>
+                <th>Department</th>
+                <th>Owner</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Last Updated</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="processTableBody">
+              <!-- Populated by JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Bottom Grid -->
+      <div class="bottom-grid">
+        <!-- Timeline -->
+        <div class="card timeline-card">
+          <div class="card-header">
+            <h3>Recent Activity</h3>
+            <a href="#" class="link-btn">View all</a>
+          </div>
+          <div class="timeline" id="activityTimeline">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+        <!-- Top Reviewers -->
+        <div class="card leaderboard-card">
+          <div class="card-header">
+            <h3>Top Reviewers</h3>
+            <span class="badge">This Month</span>
+          </div>
+          <div class="leaderboard" id="leaderboard">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page: Processes -->
+    <section class="page" id="page-processes">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Process Library</h1>
+          <p class="page-subtitle">Browse, create, and manage all organizational processes</p>
+        </div>
+        <div class="page-actions">
+          <button class="btn btn-outline" id="exportBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Export
+          </button>
+          <button class="btn btn-primary" id="newProcessBtn2">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M12 5v14M5 12h14"/></svg>
+            New Process
+          </button>
+        </div>
+      </div>
+      <div class="process-grid" id="processGrid">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- Page: Reviews -->
+    <section class="page" id="page-reviews">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Review Queue</h1>
+          <p class="page-subtitle">Manage pending reviews and approvals</p>
+        </div>
+      </div>
+      <div class="review-columns" id="reviewBoard">
+        <div class="review-column">
+          <div class="column-header pending-header">
+            <span class="column-dot pending"></span>
+            <h4>Pending</h4>
+            <span class="column-count" id="pendingCount">0</span>
+          </div>
+          <div class="column-body" id="pendingColumn"></div>
+        </div>
+        <div class="review-column">
+          <div class="column-header review-header">
+            <span class="column-dot in-review"></span>
+            <h4>In Review</h4>
+            <span class="column-count" id="reviewCount">0</span>
+          </div>
+          <div class="column-body" id="reviewColumn"></div>
+        </div>
+        <div class="review-column">
+          <div class="column-header approved-header">
+            <span class="column-dot approved"></span>
+            <h4>Approved</h4>
+            <span class="column-count" id="approvedCount">0</span>
+          </div>
+          <div class="column-body" id="approvedColumn"></div>
+        </div>
+        <div class="review-column">
+          <div class="column-header rejected-header">
+            <span class="column-dot rejected"></span>
+            <h4>Needs Revision</h4>
+            <span class="column-count" id="rejectedCount">0</span>
+          </div>
+          <div class="column-body" id="rejectedColumn"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page: Analytics -->
+    <section class="page" id="page-analytics">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Analytics</h1>
+          <p class="page-subtitle">Deep insights into your process review performance</p>
+        </div>
+        <div class="page-actions">
+          <select class="filter-select" id="analyticsTimeFilter">
+            <option value="7d">Last 7 days</option>
+            <option value="30d" selected>Last 30 days</option>
+            <option value="90d">Last 90 days</option>
+          </select>
+        </div>
+      </div>
+      <div class="analytics-grid">
+        <div class="chart-card">
+          <div class="chart-header"><h3>Cycle Time Trend</h3></div>
+          <div class="chart-body"><canvas id="cycleTimeChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-header"><h3>Reviews by Department</h3></div>
+          <div class="chart-body"><canvas id="deptChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-header"><h3>Reviewer Workload</h3></div>
+          <div class="chart-body"><canvas id="workloadChart"></canvas></div>
+        </div>
+        <div class="chart-card">
+          <div class="chart-header"><h3>Monthly Throughput</h3></div>
+          <div class="chart-body"><canvas id="throughputChart"></canvas></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Page: Team -->
+    <section class="page" id="page-team">
+      <div class="page-header">
+        <div>
+          <h1 class="page-title">Team</h1>
+          <p class="page-subtitle">Manage team members and their review assignments</p>
+        </div>
+        <button class="btn btn-primary" id="inviteBtn">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18"><path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="8.5" cy="7" r="4"/><line x1="20" y1="8" x2="20" y2="14"/><line x1="23" y1="11" x2="17" y2="11"/></svg>
+          Invite Member
+        </button>
+      </div>
+      <div class="team-grid" id="teamGrid">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+  </main>
+
+  <!-- Modal Overlay -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="processModal">
+      <div class="modal-header">
+        <h2 id="modalTitle">New Process</h2>
+        <button class="modal-close" id="modalClose">&times;</button>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <form id="processForm">
+          <div class="form-group">
+            <label for="procName">Process Name</label>
+            <input type="text" id="procName" placeholder="e.g., Employee Onboarding v2">
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="procDept">Department</label>
+              <select id="procDept">
+                <option value="">Select department</option>
+                <option value="Engineering">Engineering</option>
+                <option value="Operations">Operations</option>
+                <option value="Finance">Finance</option>
+                <option value="HR">Human Resources</option>
+                <option value="Marketing">Marketing</option>
+                <option value="Legal">Legal</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="procPriority">Priority</label>
+              <select id="procPriority">
+                <option value="low">Low</option>
+                <option value="medium" selected>Medium</option>
+                <option value="high">High</option>
+                <option value="critical">Critical</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="procDesc">Description</label>
+            <textarea id="procDesc" rows="4" placeholder="Describe the process and what this review covers..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="procOwner">Assign Reviewer</label>
+            <select id="procOwner">
+              <option value="">Select reviewer</option>
+              <option value="Sarah Chen">Sarah Chen</option>
+              <option value="Marcus Johnson">Marcus Johnson</option>
+              <option value="Emily Rodriguez">Emily Rodriguez</option>
+              <option value="James Wilson">James Wilson</option>
+              <option value="Aisha Patel">Aisha Patel</option>
+            </select>
+          </div>
+          <div class="form-actions">
+            <button type="button" class="btn btn-outline" id="cancelModal">Cancel</button>
+            <button type="submit" class="btn btn-primary">Create Process</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Notification Panel -->
+  <div class="notification-panel" id="notifPanel">
+    <div class="notif-header">
+      <h3>Notifications</h3>
+      <button class="link-btn" id="clearNotifs">Mark all read</button>
+    </div>
+    <div class="notif-list" id="notifList">
+      <!-- Populated by JS -->
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
